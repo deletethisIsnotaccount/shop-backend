@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import express, {NextFunction, Response, Request} from "express"
 import cors from "cors"
 import fileUpload from "express-fileupload"
+import {sequelize} from "./database/dbConnection"
 dotenv.config()
 
 const app = express()
@@ -30,7 +31,8 @@ app.get('/api' , (req: Request , res :  Response , next: NextFunction)=> {
 app.listen(process.env.PORT ?? 5000, async () => {
     console.log(`server is running on port: ${process.env.PORT  ?? 5000} \n http://localhost:5000/` )
     try {
-       console.log('test test')
+        await sequelize.sync()
+        await sequelize.authenticate();
     } catch (error) {
         console.log(error)
     }
