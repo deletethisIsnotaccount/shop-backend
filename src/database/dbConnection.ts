@@ -23,14 +23,14 @@ const OrdersProducts = sequelize.define('OrderProducts', {
     OrdersId: {
         type: DataTypes.INTEGER,
         references: {
-            model: Orders, // 'Movies' would also work
+            model: Orders,
             key: 'id'
         }
     },
     ProductsId: {
         type: DataTypes.INTEGER,
         references: {
-            model: Products, // 'Actors' would also work
+            model: Products,
             key: 'id'
         }
     }

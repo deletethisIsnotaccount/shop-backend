@@ -6,6 +6,7 @@ import express, {NextFunction, Response, Request} from "express"
 import cors from "cors"
 import fileUpload from "express-fileupload"
 import {sequelize} from "./database/dbConnection"
+import {productRouter} from "./router/product.router"
 dotenv.config()
 
 const app = express()
@@ -17,15 +18,13 @@ app.use(cors({
     credentials: true
 }))
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, "..",'static')));
 cors({
     credentials: true,
     origin: "http://localhost",
 })
 
-app.get('/api' , (req: Request , res :  Response , next: NextFunction)=> {
-    res.json({'messge' : 'hello'})
-});
+app.use('/api' , productRouter);
 
 
 app.listen(process.env.PORT ?? 5000, async () => {
