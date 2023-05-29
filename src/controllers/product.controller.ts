@@ -29,22 +29,44 @@ export class ProductController{
     }
 
     public static async GetAll(req: Request , res: Response , next: NextFunction){
-        res.json (await Products.findAll());
+        try {
+
+            res.status(200).json(await Products.findAll());
+        } catch (error) {
+            console.error('Server Side', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
 
     public static async GetOne(req: Request , res: Response , next: NextFunction){
-        res.json( await Products.findOne({where:{id:req.query.id}}))
+        try {
+            res.status(200).json( await Products.findOne({where:{id:req.query.id}}));
+        } catch (error) {
+            console.error('Server Side', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
 
     public static async DeleteOne(req: Request , res: Response , next: NextFunction){
-        res.json( await Products.destroy({where:{id:req.query.id}}))
+        try {
+            res.status(200).json( await Products.destroy({where:{id:req.query.id}}))
+        } catch (error) {
+            console.error('Server Side', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
     public static async UpdateOne(req: Request , res: Response , next: NextFunction){
-        const {error,warning , value} = ProductValidator.validate(req.body);
-        if(value){
-            res.json( await Products.update({...value} , {where:{id:req.query.id}}))
+        try {
+            const {error,warning , value} = ProductValidator.validate(req.body);
+            if(value){
+                res.status(200).json( await Products.update({...value} , {where:{id:req.query.id}}))
+            }
+            res.status(400).json({error: "Bad request"})
         }
-        else res.json({"status":"error"})
-        res.status(400)
+         catch (error) {
+        console.error('Server Side', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+
     }
 }
