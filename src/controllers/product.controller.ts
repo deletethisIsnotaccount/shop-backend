@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import {ProductValidator} from "../validation/product.validation"
-import {CreateProductDto} from "../dto/product.dto";
+import {CreateProductDto, UpdateProductDto} from "../dto/product.dto";
 import {UploadedFile} from "express-fileupload";
 import * as  uuid from "uuid"
 import {Products} from "../database/dbConnection";
@@ -26,5 +26,25 @@ export class ProductController{
 
         }
 
+    }
+
+    public static async GetAll(req: Request , res: Response , next: NextFunction){
+        res.json (await Products.findAll());
+    }
+
+    public static async GetOne(req: Request , res: Response , next: NextFunction){
+        res.json( await Products.findOne({where:{id:req.query.id}}))
+    }
+
+    public static async DeleteOne(req: Request , res: Response , next: NextFunction){
+        res.json( await Products.destroy({where:{id:req.query.id}}))
+    }
+    public static async UpdateOne(req: Request , res: Response , next: NextFunction){
+        const {error,warning , value} = ProductValidator.validate(req.body);
+        if(value){
+            res.json( await Products.update({...value} , {where:{id:req.query.id}}))
+        }
+        else res.json({"status":"error"})
+        res.status(400)
     }
 }

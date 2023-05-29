@@ -1,5 +1,5 @@
 import Joi  from 'joi';
-import {CreateProductDto} from "../dto/product.dto";
+import {CreateProductDto, UpdateProductDto} from "../dto/product.dto";
 export const ProductValidator = Joi.object<CreateProductDto>({
 
     description: Joi.string()
