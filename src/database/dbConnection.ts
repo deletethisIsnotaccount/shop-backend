@@ -25,7 +25,7 @@ export const sequelize = new Sequelize(ConfigDB.Database,ConfigDB.User ,ConfigDB
     })
     Products.belongsTo(Shop)
 
-const OrdersProducts = sequelize.define('OrderProducts', {
+ const OrdersProducts = sequelize.define('OrderProducts', {
     OrderId: {
         type: DataTypes.INTEGER,
         references: {
@@ -46,4 +46,4 @@ Products.belongsToMany(Orders, { through: OrdersProducts });
 Orders.belongsToMany(Products, { through: OrdersProducts });
 
 
-export {Users, Products , Orders,Shop}
+export {Users, Products , Orders,Shop ,OrdersProducts}
