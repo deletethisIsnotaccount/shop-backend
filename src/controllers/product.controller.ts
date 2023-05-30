@@ -1,11 +1,13 @@
 import {NextFunction, Request, Response} from "express";
-import {ProductValidator} from "../validation/product.validation"
+import {ProductValidator, UpdateProductValidator} from "../validation/product.validation"
+
 import {CreateProductDto, UpdateProductDto} from "../dto/product.dto";
 import {UploadedFile} from "express-fileupload";
 import * as  uuid from "uuid"
 import {Products} from "../database/dbConnection";
 import * as path from "path";
 import {ImageService} from "../services/image.service";
+import {commonController} from "./common.controller";
 export class ProductController{
     public static async CreateProduct(req : Request , res: Response , next : NextFunction){
         try {
@@ -27,46 +29,8 @@ export class ProductController{
         }
 
     }
-
-    public static async GetAll(req: Request , res: Response , next: NextFunction){
-        try {
-
-            res.status(200).json(await Products.findAll());
-        } catch (error) {
-            console.error('Server Side', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
-
-    public static async GetOne(req: Request , res: Response , next: NextFunction){
-        try {
-            res.status(200).json( await Products.findOne({where:{id:req.query.id}}));
-        } catch (error) {
-            console.error('Server Side', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
-
-    public static async DeleteOne(req: Request , res: Response , next: NextFunction){
-        try {
-            res.status(200).json( await Products.destroy({where:{id:req.query.id}}))
-        } catch (error) {
-            console.error('Server Side', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
-    public static async UpdateOne(req: Request , res: Response , next: NextFunction){
-        try {
-            const {error,warning , value} = ProductValidator.validate(req.body);
-            if(value){
-                res.status(200).json( await Products.update({...value} , {where:{id:req.query.id}}))
-            }
-            res.status(400).json({error: "Bad request"})
-        }
-         catch (error) {
-        console.error('Server Side', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-
-    }
+    public static GetAll=commonController.GetAll(Products)
+    public static GetOne=commonController.GetOne(Products)
+    public static  DeleteOne = commonController.DeleteOne(Products )
+    public static UpdateOne = commonController.UpdateOne(Products , UpdateProductValidator)
 }
