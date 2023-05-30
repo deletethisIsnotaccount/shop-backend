@@ -12,4 +12,7 @@ export class ImageService{
         const imgName:string = newNameFormatUUID+this.ImgFormatting(img)
         await img.mv(path.join(__dirname , ".." , "..","src", 'static', imgName))
     }
+    public static SetToStatic(fileName : string){
+        return path.join(__dirname , ".." , "..","src", 'static', fileName)
+    }
 }

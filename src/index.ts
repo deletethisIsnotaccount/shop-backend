@@ -8,6 +8,8 @@ import fileUpload from "express-fileupload"
 import {sequelize} from "./database/dbConnection"
 import {productRouter} from "./router/product.router"
 import {ShopRouter} from "./router/shop.router";
+import {UserRouter} from "./router/user.router";
+import {OrderRouter} from "./router/order.router";
 dotenv.config()
 
 const app = express()
@@ -25,7 +27,7 @@ cors({
     origin: "http://localhost",
 })
 
-app.use('/api' , productRouter,ShopRouter);
+app.use('/api' , productRouter,ShopRouter ,UserRouter ,OrderRouter);
 
 
 app.listen(process.env.PORT ?? 5000, async () => {

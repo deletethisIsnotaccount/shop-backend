@@ -10,8 +10,8 @@ export class commonController  {
         return async function (req: Request , res: Response , next: NextFunction){
             try{
                 const {error , value} = ValidationObject.validate(req.body);
-                if(!error){
-                    res.status(200).json( await Products.update({...value} , {where:{id:req.query.id}}))
+                if(error){
+                    res.status(200).json( await model.update({...value} , {where:{id:req.query.id}}))
                 }
                 else res.status(400).json({error: "Bad request" , "message": error.message})
             }
