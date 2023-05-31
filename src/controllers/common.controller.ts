@@ -45,8 +45,8 @@ export class commonController  {
     public static GetAll(model : ModelCtor<Model<any, any>>){
         return async function (req: Request , res: Response , next: NextFunction){
             try {
-
-                res.status(200).json(await model.findAll());
+                const Users = await model.findAll()
+                res.status(200).json(Users);
             } catch (error) {
                 console.error('Server Side', error);
                 res.status(500).json({ error: 'Internal server error' });
