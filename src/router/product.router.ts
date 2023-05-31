@@ -7,5 +7,6 @@ productRouter.get("/file/:id" , ProductController.getProductImage)
 productRouter.delete("/removeProduct" , ProductController.DeleteOne)
 productRouter.get("/allProducts" , ProductController.GetAll)
 productRouter.put("/putProducts" , ProductController.UpdateOne)
+productRouter.get("/productLike" , ProductController.GetAlikeProducts)
 
 

@@ -1,4 +1,5 @@
 import {NextFunction, Request, Response} from "express";
+const { Op } = require('sequelize');
 import {ProductValidator, UpdateProductValidator} from "../validation/product.validation"
 
 import {CreateProductDto, UpdateProductDto} from "../dto/product.dto";
@@ -11,6 +12,16 @@ import {commonController} from "./common.controller";
 import ProductAttributes from "../database/attributes/productAttributes";
 import {Model} from "sequelize";
 export class ProductController{
+    public static async GetAlikeProducts(req: Request , res: Response ,next : NextFunction){
+        try {
+            const substring = req.query.substring;
+            if(typeof substring == "string"){res.json(await Products.findAll({where:{ProductName:{[Op.like]: `%${substring}%`,}}}))}
+           else res.status(400).json({ error: 'Bad Request : parameter substring is empty '});
+        }catch (error) {
+            console.error('Server Side', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
     public static async CreateProduct(req : Request , res: Response , next : NextFunction){
         try {
             const data: CreateProductDto = req.body;

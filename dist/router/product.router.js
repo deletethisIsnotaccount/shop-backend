@@ -10,4 +10,5 @@ exports.productRouter.get("/file/:id", product_controller_1.ProductController.ge
 exports.productRouter.delete("/removeProduct", product_controller_1.ProductController.DeleteOne);
 exports.productRouter.get("/allProducts", product_controller_1.ProductController.GetAll);
 exports.productRouter.put("/putProducts", product_controller_1.ProductController.UpdateOne);
+exports.productRouter.get("/productLike", product_controller_1.ProductController.GetAlikeProducts);
 //# sourceMappingURL=product.router.js.map

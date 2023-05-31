@@ -33,12 +33,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductController = void 0;
+const { Op } = require('sequelize');
 const product_validation_1 = require("../validation/product.validation");
 const uuid = __importStar(require("uuid"));
 const dbConnection_1 = require("../database/dbConnection");
 const image_service_1 = require("../services/image.service");
 const common_controller_1 = require("./common.controller");
 class ProductController {
+    static GetAlikeProducts(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const substring = req.query.substring;
+                if (typeof substring == "string") {
+                    res.json(yield dbConnection_1.Products.findAll({ where: { ProductName: { [Op.like]: `%${substring}%`, } } }));
+                }
+                else
+                    res.status(400).json({ error: 'Bad Request : parameter substring is empty ' });
+            }
+            catch (error) {
+                console.error('Server Side', error);
+                res.status(500).json({ error: 'Internal server error' });
+            }
+        });
+    }
     static CreateProduct(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
