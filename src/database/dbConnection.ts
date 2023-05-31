@@ -6,11 +6,7 @@ import userAttributes from "./attributes/userAttributes"
 import shopAttributes from "./attributes/shopAttributes"
 import ShopAttributes from "./attributes/shopAttributes";
 
-export const sequelize = new Sequelize(ConfigDB.Database,ConfigDB.User ,ConfigDB.Password , {
-    host: ConfigDB.Host,
-    dialect: 'postgres',
-    port: ConfigDB.Port,
-});
+export const sequelize = new Sequelize("postgres://andrii:SeuLQrCbB0ZYHZrYpCqHEYiSqfPbcFjt@dpg-chrlsegrddlba9pak230-a.frankfurt-postgres.render.com/store_r74r",{dialectOptions:{ssl:true , native:true}});
     const Orders = sequelize.define ('Orders' , orderAttributes);
     const Products = sequelize.define('Products', productAttributes);
     const Users = sequelize.define('Users' , userAttributes)

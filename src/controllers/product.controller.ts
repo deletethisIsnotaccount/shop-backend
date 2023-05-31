@@ -26,8 +26,9 @@ export class ProductController{
                 res.json({"status":"Image should be an file type"})
             }
             else res.send(error.message)
-        }catch (e) {
-
+        }catch (error) {
+            console.error('Server Side', error);
+            res.status(500).json({ error: 'Internal server error' });
         }
 
     }
