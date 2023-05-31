@@ -3,6 +3,7 @@ import {OrdersProducts} from "../database/dbConnection"
 import {manyToManyValidation} from "../validation/manyToMany.validation"
 import {commonController} from "./common.controller";
 export class OrderProductController {
+
     public static async CreateMtM(req: Request , res : Response , next : NextFunction){
         try {
             const data = req.body;

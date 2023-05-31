@@ -17,9 +17,8 @@ const productAttributes = {
         type:DataTypes.STRING ,
         allowNull: true,
     },
-    ShopId: {
-        type: DataTypes.NUMBER,
-        required: false
+    ShopId:{
+        type: DataTypes.NUMBER
     }
 }
 
