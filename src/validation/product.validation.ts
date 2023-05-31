@@ -1,6 +1,6 @@
 import Joi  from 'joi';
 import {CreateProductDto, UpdateProductDto} from "../dto/product.dto";
-export const ProductValidator = Joi.object<CreateProductDto>({
+export const ProductValidator = Joi.object<CreateProductDto , "ShopId">({
 
     description: Joi.string()
         .required()
@@ -12,8 +12,8 @@ export const ProductValidator = Joi.object<CreateProductDto>({
         .max(35),
     price: Joi.string()
         .required(),
-    ShopId: Joi.number()
-        .optional()
+    ShopId: Joi.string()
+        .required()
 })
 
 export const UpdateProductValidator = Joi.object({

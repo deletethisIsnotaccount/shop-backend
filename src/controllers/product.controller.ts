@@ -33,9 +33,9 @@ export class ProductController{
     }
     public static async getProductImage(req: Request , res: Response , next: NextFunction){
         try {
-            const product: any  =  await Products.findOne({where:{id:req.params.id}})
-            if(!product){res.status(404).json({error: `Product with id ${req.params.id} not found` })}
-            res.sendFile(ImageService.SetToStatic(product.img))
+            const img =req.params.id
+            if(!img){res.status(404).json({error: `Product with id ${req.params.id} not found` })}
+            res.sendFile(ImageService.SetToStatic(img))
         }catch (error) {
             console.error('Server Side', error);
             res.status(500).json({ error: 'Internal server error' });
