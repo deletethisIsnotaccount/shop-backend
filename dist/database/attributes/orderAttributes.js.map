@@ -1,0 +1,1 @@
+{"version":3,"file":"orderAttributes.js","sourceRoot":"","sources":["../../../src/database/attributes/orderAttributes.ts"],"names":[],"mappings":";;AAAA,yCAAqC;AAErC,MAAM,eAAe,GAAG;IAEpB,gBAAgB,EAAE;QACd,IAAI,EAAE,qBAAS,CAAC,MAAM;QACtB,SAAS,EAAE,KAAK;KACnB;CAGJ,CAAA;AAGD,kBAAe,eAAe,CAAC"}
